@@ -333,25 +333,25 @@ namespace DZ_modul_11_part_2
             WriteIndented = true
         };
         
-        public static void Save(List<Poem> poem)
+        public static void Save<T>(IEnumerable<T> obj)
         {
             
-            string jsonString = JsonSerializer.Serialize(poem, Options);
+            string jsonString = JsonSerializer.Serialize(obj, Options);
             File.WriteAllText(file, jsonString);
             Console.WriteLine("Данные сохранены");
 
         }
-        public static void Save(string jsonPoem)
+        public static void Save(string json)
         {
-            File.WriteAllText(file, jsonPoem);
+            File.WriteAllText(file, json);
             Console.WriteLine("Данные сохранены");
         }
-        public static void Load(ref List<Poem> poem)
+        public static void Load<T>(ref List<T> obj)
         {
             string fileString = File.ReadAllText(file);
-            poem = JsonSerializer.Deserialize< List<Poem>>(fileString);
+            obj = JsonSerializer.Deserialize<List<T>>(fileString);
 
-            if (poem.Count > 0)
+            if (obj != null)
                 Console.WriteLine("Данные загружены");
             else
                 throw new Exception("Ошибка загрузки данных");
@@ -494,5 +494,15 @@ namespace DZ_modul_11_part_2
                    $"Оценка: {r.RestaurantRating}\n" +
                    $"Отзыв: {r.UserReview}";
         }
+        public void Save()
+        {
+            if (this == null) throw new Exception($"Список ресторанов пуст");
+
+            string jsonString = JsonSerializer.Serialize(this, FileLoadSave.Options);
+            FileLoadSave.file = "Restaurants.json";
+            FileLoadSave.Save(jsonString);
+
+        }
+
     }
 }

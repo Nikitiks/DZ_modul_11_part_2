@@ -90,7 +90,7 @@ namespace DZ_modul_11_part_2
             //if (Directory.Exists(_path))
             //{
             //    var files1 = Directory.EnumerateFiles(_path, mask, SearchOption.AllDirectories);
-                
+
             //    foreach (var file in files1)
             //    {
             //        File.Delete(file);
@@ -215,6 +215,8 @@ namespace DZ_modul_11_part_2
                 Console.WriteLine($"Название: {goodRestaurant.RestaurantName}");
                 Console.WriteLine($"Оценка: {goodRestaurant.RestaurantRating}");
                 Console.WriteLine($"Отзыв: {goodRestaurant.UserReview}");
+
+                goodRestaurant.Save();
             }
             catch (Exception ex)
             {
@@ -235,6 +237,7 @@ namespace DZ_modul_11_part_2
                     restaurantRating: "15",  // некорректный рейтинг!
                     userReview: "Не понравилось"
                 );
+                badRestaurant.Save();
             }
             catch (Exception ex)
             {
